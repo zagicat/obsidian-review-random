@@ -1,0 +1,9 @@
+{
+  "id": "review-random",
+  "name": "Review Random",
+  "version": "1.0.0",
+  "minAppVersion": "1.4.0",
+  "description": "Open a random note tagged for review",
+  "author": "Keith",
+  "isDesktopOnly": false
+}
