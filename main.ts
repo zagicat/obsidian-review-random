@@ -71,7 +71,7 @@ export default class ReviewRandomPlugin extends Plugin {
 
     this.addCommand({
       id: "open-random-article",
-      name: "Open random article",
+      name: "Open random article marked for review",
       callback: () => this.reviewRandom(),
     });
 
