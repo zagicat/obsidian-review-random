@@ -17,7 +17,7 @@ interface ReviewRandomSettings {
 
 const DEFAULT_SETTINGS: ReviewRandomSettings = {
   tag: "review-needed",
-  excludedFolders: ["Clippings"],
+  excludedFolders: ["inbox"],
 };
 
 // --- Pure functions (exported for testing) ---
