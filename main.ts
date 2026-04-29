@@ -137,11 +137,11 @@ class ReviewRandomSettingTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName("Excluded folders")
       .setDesc(
-        "Comma-separated list of top-level folders to exclude (e.g. Clippings, Archive)"
+        "Comma-separated list of top-level folders to exclude (e.g. inbox, Clippings, Archive)"
       )
       .addText((text) =>
         text
-          .setPlaceholder("Clippings")
+          .setPlaceholder("inbox")
           .setValue(this.plugin.settings.excludedFolders.join(", "))
           .onChange(async (value) => {
             this.plugin.settings.excludedFolders = parseExcludedFolders(value);
