@@ -1,5 +1,6 @@
 import {
   App,
+  getAllTags,
   MetadataCache,
   Notice,
   Plugin,
@@ -49,15 +50,8 @@ export function filterEligibleFiles(
     const cache = metadataCache.getFileCache(file);
     if (!cache) return false;
 
-    // Check inline tags (Obsidian stores these WITH # prefix)
-    const inlineTags = cache.tags?.map((t) => t.tag.replace(/^#/, "")) ?? [];
-    if (inlineTags.includes(tag)) return true;
-
-    // Check frontmatter tags (stored WITHOUT # prefix; can be string or string[])
-    const fmTags = cache.frontmatter?.tags;
-    if (!fmTags) return false;
-    const fmTagArray: string[] = Array.isArray(fmTags) ? fmTags : [fmTags];
-    return fmTagArray.map((t) => t.trim()).includes(tag);
+    const allTags = getAllTags(cache) ?? [];
+    return allTags.some((t) => t.replace(/^#/, "") === tag);
   });
 }
 

@@ -38,19 +38,15 @@ function parseExcludedFolders(input) {
 }
 function filterEligibleFiles(files, tag, excludedFolders, metadataCache) {
   return files.filter((file) => {
-    var _a, _b, _c;
+    var _a;
     const topFolder = file.path.split("/")[0];
     if (file.path.includes("/") && excludedFolders.includes(topFolder)) {
       return false;
     }
     const cache = metadataCache.getFileCache(file);
     if (!cache) return false;
-    const inlineTags = (_b = (_a = cache.tags) == null ? void 0 : _a.map((t) => t.tag.replace(/^#/, ""))) != null ? _b : [];
-    if (inlineTags.includes(tag)) return true;
-    const fmTags = (_c = cache.frontmatter) == null ? void 0 : _c.tags;
-    if (!fmTags) return false;
-    const fmTagArray = Array.isArray(fmTags) ? fmTags : [fmTags];
-    return fmTagArray.map((t) => t.trim()).includes(tag);
+    const allTags = (_a = (0, import_obsidian.getAllTags)(cache)) != null ? _a : [];
+    return allTags.some((t) => t.replace(/^#/, "") === tag);
   });
 }
 var ReviewRandomPlugin = class extends import_obsidian.Plugin {
@@ -58,7 +54,7 @@ var ReviewRandomPlugin = class extends import_obsidian.Plugin {
     await this.loadSettings();
     this.addCommand({
       id: "open-random-article",
-      name: "Open random article",
+      name: "Open random article marked for review",
       callback: () => this.reviewRandom()
     });
     this.addSettingTab(new ReviewRandomSettingTab(this.app, this));
